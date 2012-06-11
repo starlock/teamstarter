@@ -3,6 +3,7 @@ import api
 
 app = Flask(__name__, static_folder="static")
 app.register_blueprint(api.user.page, url_prefix="/api/user")
+app.register_blueprint(api.project.page, url_prefix="/api/project")
 
 @app.route("/")
 def index():
