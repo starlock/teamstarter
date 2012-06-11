@@ -1,13 +1,43 @@
-html, body, h1, p {
+html {
     margin: 0;
     padding: 0;
-    font-family: Helvetica, arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, arial, sans-serif;
 }
 
-#header {
-    padding: 15px;
-    background: #eee;
+/*******************************************************************************
+ * OUR CUSTOM NAVIGATION DESIGN
+ *******************************************************************************/
+
+.navbar-inner {
+    border-bottom: 1px solid #4c5a68;
+
+    background-image: linear-gradient(bottom, rgb(84,98,113) 5%, rgb(99,113,130) 53%);
+    background-image: -o-linear-gradient(bottom, rgb(84,98,113) 5%, rgb(99,113,130) 53%);
+    background-image: -moz-linear-gradient(bottom, rgb(84,98,113) 5%, rgb(99,113,130) 53%);
+    background-image: -webkit-linear-gradient(bottom, rgb(84,98,113) 5%, rgb(99,113,130) 53%);
+    background-image: -ms-linear-gradient(bottom, rgb(84,98,113) 5%, rgb(99,113,130) 53%);
+
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.05, rgb(84,98,113)),
+        color-stop(0.53, rgb(99,113,130))
+    );
 }
+
+.navbar .nav > li > a {
+    color: #b5c9df;
+}
+
+.navbar .nav .active > a, .navbar .nav .active > a:hover {
+    background-color: #4c5a68;
+}
+
+.navbar .brand {
+    padding: 6px 20px 7px;
+}
+
 
 #header h1 {
     font-family: 'Acme';
