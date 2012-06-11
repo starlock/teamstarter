@@ -4,10 +4,7 @@ from sqlalchemy import create_engine, MetaData, Table
 import api
 
 app = Flask(__name__, static_folder="static")
-
-
-foo = { "DEBUG": True }
-app.config.from_object(foo)
+app.config.from_pyfile("settings.py")
 
 app.register_blueprint(api.user.page, url_prefix="/api/user")
 app.register_blueprint(api.project.page, url_prefix="/api/project")
