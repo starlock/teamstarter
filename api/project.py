@@ -1,4 +1,7 @@
 from flask import request, Blueprint
+from datetime import datetime
+
+import db
 
 page = Blueprint("project", __name__)
 
@@ -6,7 +9,36 @@ page = Blueprint("project", __name__)
 def create():
     # request.form["name"]
     # request.form["description"]
-    return "CREATE PROJECT"
+    # request.form["role"]
+
+    role = 'ADMIN'
+    if 'role' in request.form:
+        role = request.form['role'].upper()
+
+    conn = db.engine.connect()
+    trans = conn.begin()
+    try:
+        data = conn.execute(db.projects.insert(),
+            name = request.form["name"],
+            description = request.form["description"]
+        )
+
+        [project_id] = data.inserted_primary_key
+
+        data = conn.execute(db.user_projects.insert(),
+            user_id = 1, # TODO: use real id from session
+            project_id = project_id,
+            role = role,
+            created_at = datetime.now(),
+            modified_at = datetime.now()
+        )
+
+        trans.commit()
+    except:
+        trans.rollback()
+        return "Could not create project", 500
+
+    return "Created project: %d" % project_id, 201
 
 @page.route("/<int:project_id>", methods=["GET"])
 def fetch(project_id):

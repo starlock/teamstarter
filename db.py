@@ -10,6 +10,8 @@ metadata = MetaData(bind=engine)
 
 users = Table('users', metadata, autoload=True)
 sessions = Table('sessions', metadata, autoload=True)
+projects = Table('projects', metadata, autoload=True)
+user_projects = Table('user_project_rel', metadata, autoload=True)
 
 blacklisted_keys = ( 'password', )
 
