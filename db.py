@@ -20,13 +20,20 @@ def json_datetime_handler(obj):
         return obj.isoformat()
     return None
 
-def json_encode(row):
-    obj = {}
+def blacklist_stripper(obj):
+    keys = obj.keys()
+    for key in keys:
+        for blacklist in blacklisted_keys:
+            if blacklist in key:
+                del obj[key]
 
-    if row:
-        keys = row.keys()
-        for key in keys:
-            if key not in blacklisted_keys:
-                obj[key] = row[key]
+def json_encode(obj):
+    # Temporary hack until better fix arrives
+    if type(obj) == list:
+        for key, value in enumerate(obj):
+            if type(obj[key]) == dict:
+                blacklist_stripper(obj[key])
+    elif type(obj) == dict:
+        blacklist_stripper(obj)
 
     return json.dumps(obj, default=json_datetime_handler)
