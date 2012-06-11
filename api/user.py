@@ -1,5 +1,6 @@
 from flask import request, Blueprint
 import bcrypt
+from datetime import datetime
 
 from db import users
 
@@ -13,7 +14,8 @@ def create():
     hashed_password = bcrypt.hashpw(request.form["password"], bcrypt.gensalt())
     data = users.insert().execute(
         email = request.form["email"],
-        password = hashed_password
+        password = hashed_password,
+        created_at = datetime.now()
     )
 
     [user_id] = data.inserted_primary_key
