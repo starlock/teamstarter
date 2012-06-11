@@ -36,7 +36,7 @@ name            [varchar 120]   Project name
 description     [varchar 65535] Project description
 ```
 
-## Included JavaScript libraries
+# Included JavaScript libraries
     jQuery 1.7.2
     Underscore.js 1.3.3
     Mustache.js 0.5.0-dev
