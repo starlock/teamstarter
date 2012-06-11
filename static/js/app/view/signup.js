@@ -2,7 +2,7 @@ define([
     'text!template/view/signup.html'
 ], function(SignupMarkup) {
     var SignupView = Backbone.View.extend({
-        className: 'modal hide',
+        className: 'modal hide fade',
 
         events: {
             'click #signup-btn': 'onCreateClick',

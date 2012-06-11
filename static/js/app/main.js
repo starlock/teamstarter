@@ -1,10 +1,25 @@
 define([
     'text!template/layout/main.html',
-    './layout/navigation'
+    'app/layout/navigation',
+
+    'app/view/discover',
+
+    'app/view/project/create',
+    'app/view/project/show',
+
+    'app/util'
 ], function(
     BaseMarkup,
-    NavigationLayout
+    NavigationLayout,
+
+    DiscoverView,
+
+    CreateProjectView,
+    ShowProjectView,
+
+    Utility
 ) {
+    // Application context
     var app = {};
 
     var ApplicationView = Backbone.View.extend({
@@ -52,8 +67,102 @@ define([
             this.currentNavigation = navigation;
             this.$('#nav-container').append(navigation.render().$el);
             return this;
-        },
+        }
     });
+
+    var Workspace = Backbone.Router.extend({
+        routes: {
+            '': 'indexHandler',
+
+            'discover': 'discoverHandler',
+
+            'project/create': 'createProjectHandler',
+            'project/:id': 'showProjectHandler'
+        },
+
+        indexHandler: function() {
+            this.discoverHandler();
+        },
+
+        /********************************************************************
+         * DISCOVER VIEW
+         *******************************************************************/
+
+        discoverHandler: function() {
+            changeContentView(new DiscoverView());
+        },
+
+        /********************************************************************
+         * PROJECT RELATED VIEWS
+         *******************************************************************/
+
+        createProjectHandler: function() {
+            changeContentView(new CreateProjectView());
+        },
+
+        showProjectHandler: function(pid) {
+            changeContentView(new ShowProjectView());
+        }
+    });
+
+    var getContentViewContainer = function() {
+        var node = app.viewContainerNode;
+        if (_.isUndefined(node) !== true) {
+            return node;
+        }
+
+        node = $('#pageholder');
+        app.viewContainerNode = node;
+        return node;
+    };
+
+    var changeContentView = function(view) {
+        var currentView = app.currentView;
+        if (_.isUndefined(currentView) !== true) {
+            console.log('Time to remove content view');
+            currentView.$el.fadeOut(function() {
+                currentView.remove();
+                app.currentView = undefined;
+                _setContentView(view);
+            });
+            return;
+        }
+        _setContentView(view);
+    };
+
+    var _setContentView = function(view) {
+        console.log('Time to add content view', view);
+        view.render();
+
+        var container = getContentViewContainer();
+        console.log('Content view container', container);
+        app.currentView = view;
+
+        var viewElement = view.$el;
+        viewElement.hide();
+        container.append(viewElement);
+        viewElement.fadeIn();
+    };
+
+    var onTriggeredRoute = function(path) {
+        // Proceed if path is given, otherwise stay put
+        if (_.isUndefined(path) === true || path.length === 0) {
+            return;
+        }
+
+        app.router.navigate(path, {
+            trigger: true
+        });
+    };
+
+    var initRouter = function() {
+        var instance = app.router = new Workspace();
+
+        Utility.Mediator.on('page:navigate', onTriggeredRoute);
+        Backbone.history.start({
+            pushState: true
+        });
+    };
 
     var onDocumentReady = function() {
         var bodyNode = $('body');
@@ -69,10 +178,13 @@ define([
         bodyNode.append(container);
 
         // Swap curtain against prepared application DOM
-        curtainNode.fadeOut(1000);
-        container.fadeIn(1000);
+        curtainNode.fadeOut(function() {
+            curtainNode.remove();
+        });
+        container.fadeIn();
+        initRouter();
     };
 
     // Listen to the DOMReady event
-    $(onDocumentReady());
+    $(onDocumentReady);
 });

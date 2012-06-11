@@ -1,13 +1,16 @@
 define([
     '../view/signup',
-    'text!template/layout/navigation.html'
+    'text!template/layout/navigation.html',
+    'app/util'
 ], function(
     SignupView,
-    NavigationMarkup
+    NavigationMarkup,
+    Utility
 ) {
     var NavigationLayout = Backbone.View.extend({
         events: {
             'click #signup-link': 'onSignupClick',
+            'click a': 'onNavigationClick',
         },
 
         render: function() {
@@ -20,8 +23,30 @@ define([
          * EVENT CALLBACKS
          ***********************************************************/
 
-        onSignupClick: function(e) {
+        onNavigationClick: function(e) {
+            var node = $(e.currentTarget);
+            var link = node.attr('href');
+
+            /*
+             * In case the URL in the anchor is # or begins
+             * with // or http then we abort manual handling (highjacking)
+             * since we should treat it normally by design.
+             */
+            if (link === '#' ||
+                link.slice(0, 2) === '//' ||
+                link.slice(0, 4) === 'http')
+            {
+                return;
+            }
+
             e.preventDefault();
+            Utility.Mediator.trigger('page:navigate', link);
+        },
+
+        onSignupClick: function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+
             var signupModal = new SignupView();
             var signupModalElement = signupModal.render().$el;
             $('body').append(signupModalElement);
