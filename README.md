@@ -20,6 +20,7 @@ All API endpoints reside under the root url ```/api/1```
 ```
 End point                   Method  Description
 
+/user/auth                  POST    Authenticate user [email, password]
 /user/create                POST    Create a new User [email, password]
 /user/:user_id              PUT     Modify User [bio]
 /user/:user_id              GET     Get User
