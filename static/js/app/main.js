@@ -14,18 +14,18 @@ define([
     });
 
     var onDocumentReady = function() {
-        var bodyNode = $('body'),
-            curtainNode = $('#curtain'),
-            container = $('<div/>');
-
+        var bodyNode = $('body');
+        var curtainNode = $('#curtain');
+        var container = $('<div/>');
 
         container.append(new ApplicationView().render().$el);
-        curtainNode.fadeOut('slow', function() {
-            bodyNode.append(container.contents());
-        });
+        container.hide();
+        bodyNode.append(container);
+
+        curtainNode.fadeOut('slow');
+        container.fadeIn('slow');
     };
 
-    $(function() {
-        onDocumentReady();
-    });
+    // Listen to the DOMReady event
+    $(onDocumentReady());
 });
