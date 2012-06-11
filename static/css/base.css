@@ -12,6 +12,19 @@ body {
     color: #333;
 }
 
+textarea, input[type="text"], input[type="password"], input[type="datetime"],
+input[type="datetime-local"], input[type="date"], input[type="month"],
+input[type="time"], input[type="week"], input[type="number"],
+input[type="email"], input[type="url"], input[type="search"],
+input[type="tel"], input[type="color"], .uneditable-input {
+    padding: 7px;
+    font-size: 110%;
+}
+
+label {
+    font-weight: bold;
+}
+
 /*******************************************************************************
  * CURTAIN A.K.A LOADER
  *******************************************************************************/
@@ -56,6 +69,7 @@ body {
 
 .navbar .nav > li > a {
     color: #b5c9df;
+    font-weight: bold;
 }
 
 .navbar .nav .active > a, .navbar .nav .active > a:hover {
