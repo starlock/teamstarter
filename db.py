@@ -9,6 +9,7 @@ engine = create_engine(DATABASE_URI, convert_unicode=True)
 metadata = MetaData(bind=engine)
 
 users = Table('users', metadata, autoload=True)
+sessions = Table('sessions', metadata, autoload=True)
 
 blacklisted_keys = ( 'password', )
 

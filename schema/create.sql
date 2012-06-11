@@ -30,3 +30,11 @@ CREATE TABLE user_project_rel (
     modified_at TIMESTAMP,
     UNIQUE (user_id, project_id)
 );
+
+CREATE TABLE sessions (
+    session_id TEXT NOT NULL PRIMARY KEY,
+    value TEXT NOT NULL,
+    ip TEXT NOT NULL,
+    created_at TIMESTAMP,
+    modified_at TIMESTAMP
+);

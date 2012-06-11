@@ -1,8 +1,10 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 
 import api
+from session import PsqlSessionInterface
 
 app = Flask(__name__, static_folder="static")
+app.session_interface = PsqlSessionInterface()
 app.config.from_pyfile("config/settings.py")
 
 app.register_blueprint(api.user.page, url_prefix="/api/user")
