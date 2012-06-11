@@ -7,21 +7,22 @@ Our 24hbc project: Kickstarter, but teambuilding rather than fundraising
 
 ## API Endpoints
 All API endpoints reside under the root url ```/api/1```
+
 ```
 End point               Method  Action
-/user/create            POST    Create a new user [email, password]
-/user/<user-id>         GET     Get information regarding user
-/user/<user-id>         PUT     Modify user [bio]
+/user/create            POST    Create a new User [email, password]
+/user/<user-id>         PUT     Modify User [bio]
+/user/<user-id>         GET     Get model properties for given User
 
 /project/create         POST                Create a new project
-    name:               Project name [varchar 120]
-    description:        Project description, [varchar 65535]
-
-/project/<project-id>   PUT                 Modify project
-/project/<project-id>   GET                 Get information regarding project
+                                            [name, description]
+/project/<project-id>   PUT                 Modify project [name, description]
+/project/<project-id>   GET                 Get model properties for given
+                                            Project
 ```
 
 ## Models
+Description of model properties used to describe models in the API
 ### User
 ```
 email           [varchar 255]   User e-mail
