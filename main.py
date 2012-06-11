@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session
+from flask import Flask, render_template, session, redirect
 
 import db
 import api
@@ -20,6 +20,12 @@ def index():
 @app.route("/signup")
 def signup():
     return render_template('signup.html')
+
+@app.route("/logout")
+def logout():
+    if 'user_id' in session:
+        del session['user_id']
+    return redirect('/')
 
 @app.errorhandler(404)
 def page_not_found(e):
