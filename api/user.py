@@ -1,10 +1,32 @@
-from flask import request, Blueprint
 import bcrypt
 from datetime import datetime
 
+from flask import request, Blueprint
 import db
 
 page = Blueprint("user", __name__)
+
+def is_correct_password(raw, hashed):
+    """Check whether given raw password matches given hash."""
+    return (hashed == bcrypt.hashpw(raw, hashed))
+
+@page.route("/auth", methods=["POST"])
+def auth():
+    def invalid():
+        return 'Invalid credentials', 403
+
+    email = request.form['email']
+    password = request.form['password']
+    data = db.users.select().where(db.users.c.email == email).execute()
+
+    if data.rowcount == 0:
+        return invalid()
+
+    row = data.fetchone()
+    if not is_correct_password(password, row['password']):
+        return invalid()
+
+    return db.json_encode(row)
 
 @page.route("/create", methods=["POST"])
 def create():
