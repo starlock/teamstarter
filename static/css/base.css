@@ -19,9 +19,12 @@ body {
 #curtain {
     height: 100%;
     background: #222;
-    padding-top: 100px;
     z-index: 99999;
 }
+
+    #curtain-img {
+        padding-top: 150px;
+    }
 
     #curtain img {
         display: block;
@@ -70,4 +73,15 @@ body {
 
 .navbar .brand {
     padding: 6px 20px 7px;
+}
+
+/*******************************************************************************
+ * SIGNUP
+ *******************************************************************************/
+
+#signup-terms {
+    width: 530px;
+    background: #e1f6bc;
+    margin: -15px 0 -15px -15px;
+    padding: 15px 15px 1px 15px;
 }

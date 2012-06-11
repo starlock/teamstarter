@@ -26,7 +26,9 @@
 </head>
 <body>
 	<div id="curtain">
-		<img src="{{ url_for("static", filename="img/loader.png") }}" />
+		<div id="curtain-img">
+			<img src="{{ url_for("static", filename="img/loader.png") }}" />
+		</div>
 	</div>
 	<script src="{{ url_for("static", filename="js/environment.js") }}"></script>
 	<script src="{{ url_for("static", filename="js/bootstrap.min.js") }}"></script>
