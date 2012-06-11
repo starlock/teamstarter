@@ -85,6 +85,6 @@ class User(BaseModel):
             created_at = created_at,
             modified_at = modified_at,
         )
-        id = data.inserted_primary_key
+        [id] = data.inserted_primary_key
         return cls.init(id=id, email=email, password=password,
                         created_at=created_at, modified_at=modified_at)
