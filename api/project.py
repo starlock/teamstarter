@@ -4,6 +4,7 @@ import json
 import db
 import utils
 from models.project import Project
+from models.user import User
 
 page = Blueprint("project", __name__)
 
@@ -36,7 +37,8 @@ def modify(project_id):
 def users(project_id):
     # request.form["name"]
     # request.form["description"]
-    return "LIST USERS: %d" % project_id
+    users = User.get_all_for_project(project_id)
+    return json.dumps([ user.to_dict() for user in users ])
 
 @page.route("/list", methods=["GET"])
 def list():

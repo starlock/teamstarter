@@ -29,6 +29,21 @@ class User(BaseModel):
         return projects
 
     @classmethod
+    def get_all_for_project(cls, project_id):
+        data = join(db.user_projects, db.users,
+                db.user_projects.c.user_id == db.users.c.id
+            ).select(use_labels=True).where(
+                db.user_projects.c.project_id == project_id
+            ).execute()
+
+        rows = data.fetchall()
+        users = []
+        for row in rows:
+            users.append(User.init(**row))
+
+        return users
+
+    @classmethod
     def get(cls, id):
         data = db.users.select().where(db.users.c.id == id).execute()
         if data.rowcount == 0:
