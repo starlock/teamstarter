@@ -12,7 +12,7 @@ def auth():
     if not user:
         return 'Invalid credentials', 403
 
-    session['user_id'] = row['id']
+    session['user_id'] = user.id
 
     return db.json_encode(user.to_dict())
 
