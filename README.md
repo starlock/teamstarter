@@ -34,3 +34,11 @@ bio             [varchar 120]   User biography
 name            [varchar 120]   Project name
 description     [varchar 65535] Project description
 ```
+
+## Included JavaScript libraries
+    jQuery 1.7.2
+    Underscore.js 1.3.3
+    Mustache.js 0.5.0-dev
+    Backbone 0.9.2
+    RequireJS 2.0.1
+    RequireJS Text Plugin 2.0.0
