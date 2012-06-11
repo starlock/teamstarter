@@ -16,7 +16,8 @@ def create():
         data = db.users.insert().execute(
             email = request.form["email"],
             password = hashed,
-            created_at = datetime.now()
+            created_at = datetime.now(),
+            modified_at = datetime.now()
         )
     except db.IntegrityError:
         return "Email has already been used", 400
