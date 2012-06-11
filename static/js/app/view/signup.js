@@ -1,7 +1,8 @@
 define([
     'text!template/view/signup.html',
+    'app/util',
     'model/user'
-], function(SignupMarkup, User) {
+], function(SignupMarkup, utility, User) {
     var SignupView = Backbone.View.extend({
         className: 'modal hide fade',
 
@@ -9,9 +10,10 @@ define([
             'click #signup-btn': 'onCreateClick'
         },
 
+        model: User,
+
         initialize: function(options) {
             SignupView.__super__.initialize.call(this, options);
-
             this.lazyChildren = {};
             return this;
         },
@@ -104,10 +106,19 @@ define([
 
         saveForm: function() {
             var form = this.getFormData();
-            user = new User({'email': form.email,
+            var self = this;
+            this.model = new User({'email': form.email,
                              'password': form.password});
-            user.save();
+            this.model.save(null, {
+                success: function(model, response) {
+                    utility.Mediator.trigger('page:navigate', '/user/' + model.id);
+                },
+                error: function(model, response) {
+                    self.setFieldError(self.getEmailField(), response.responseText);
+                }});
         },
+
+
 
         /************************************************************
          * ERROR OUTPUT
