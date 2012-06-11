@@ -1,14 +1,33 @@
 html {
     margin: 0;
     padding: 0;
+    height: 100%;
     font-family: "Helvetica Neue", Helvetica, arial, sans-serif;
     -webkit-font-smoothing: antialiased;
 }
 
 body {
+    height: 100%;
     background: #FFF;
     color: #333;
 }
+
+/*******************************************************************************
+ * CURTAIN A.K.A LOADER
+ *******************************************************************************/
+
+#curtain {
+    height: 100%;
+    background: #222;
+    padding-top: 100px;
+    z-index: 99999;
+}
+
+    #curtain img {
+        display: block;
+        margin: 0 auto;
+    }
+
 
 /*******************************************************************************
  * OUR CUSTOM NAVIGATION DESIGN

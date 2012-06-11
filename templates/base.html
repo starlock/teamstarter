@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	{% block head %}
+	<meta charset="utf-8" />
 	<title>Teamstarter - {% block title %}Get your idea going{% endblock %}</title>
 	<link rel="stylesheet" href="{{ url_for("static", filename="css/bootstrap.min.css") }}">
 	<link rel="stylesheet" href="{{ url_for("static", filename="css/bootstrap-responsive.min.css") }}">
@@ -24,44 +25,9 @@
 	{% endblock %}
 </head>
 <body>
-	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container">
-				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</a>
-				<a class="brand" href="#">
-					<img src="{{ url_for("static", filename="img/logo.png") }}" alt="Teamstarter" />
-				</a>
-				<div class="btn-group pull-right">
-					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="icon-user"></i> Username
-						<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Profile</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Sign Out</a></li>
-					</ul>
-				</div>
-				<div class="nav-collapse">
-					<ul class="nav">
-						<li class="active"><a href="/discover">Discover</a></li>
-						<li><a href="/create">Create</a></li>
-						<li><a href="/signup">Signup</a></li>
-						<li><a href="/signin">Signin</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
+	<div id="curtain">
+		<img src="{{ url_for("static", filename="img/loader.png") }}" />
 	</div>
-
-	<div class="container">
-		{% block content %}{% endblock %}
-	</div>
-
 	<script src="{{ url_for("static", filename="js/environment.js") }}"></script>
 	<script src="{{ url_for("static", filename="js/bootstrap.min.js") }}"></script>
 	<script>
@@ -71,6 +37,11 @@
 			packages: [
 				{
 					name: 'app',
+				},
+				{
+					name: 'template',
+					main: '',
+					location: '../template'
 				}
 			]
 		});
