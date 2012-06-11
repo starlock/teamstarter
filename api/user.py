@@ -1,7 +1,5 @@
-import flask
 from flask import request, Blueprint
 import bcrypt
-from pprint import pformat
 
 from db import users
 
