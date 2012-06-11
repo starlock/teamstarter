@@ -52,7 +52,7 @@ def modify(user_id):
 @page.route("/<int:user_id>/projects", methods=["GET"])
 def users(user_id):
     projects = User.get(user_id).get_projects()
-    return json.dumps([ project.to_dict() for project in projects ])
+    return db.json_encode([ project.to_dict() for project in projects ])
 
 @page.route("/list", methods=["GET"])
 def list():

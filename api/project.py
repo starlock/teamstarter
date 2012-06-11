@@ -43,7 +43,7 @@ def users(project_id):
     # request.form["name"]
     # request.form["description"]
     users = User.get_all_for_project(project_id)
-    return json.dumps([ user.to_dict() for user in users ])
+    return db.json_encode([ user.to_dict() for user in users ])
 
 @page.route("/list", methods=["GET"])
 def list():
