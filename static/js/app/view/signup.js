@@ -1,11 +1,12 @@
 define([
-    'text!template/view/signup.html'
-], function(SignupMarkup) {
+    'text!template/view/signup.html',
+    'model/user'
+], function(SignupMarkup, User) {
     var SignupView = Backbone.View.extend({
         className: 'modal hide fade',
 
         events: {
-            'click #signup-btn': 'onCreateClick',
+            'click #signup-btn': 'onCreateClick'
         },
 
         initialize: function(options) {
@@ -102,7 +103,10 @@ define([
         },
 
         saveForm: function() {
-            console.log('Time to save user');
+            var form = this.getFormData();
+            user = new User({'email': form.email,
+                             'password': form.password});
+            user.save();
         },
 
         /************************************************************

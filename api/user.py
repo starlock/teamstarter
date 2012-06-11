@@ -21,11 +21,11 @@ def auth():
 
 @page.route("/create", methods=["POST"])
 def create():
-    email = request.form["email"]
-    password = request.form["password"]
-
+    email = request.json["email"]
+    password = request.json["password"]
     try:
         user = User.create(email, password)
+        print user
     except db.IntegrityError:
         return "Email has already been used", 400
 
