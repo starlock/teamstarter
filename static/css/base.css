@@ -126,6 +126,6 @@ label {
         margin-bottom: 0;
     }
 
-    #login-email {
-        width: 200px;
+    .input-small {
+        width: 135px;
     }
