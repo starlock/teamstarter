@@ -16,8 +16,8 @@ class Project(BaseModel):
         return cls.init(**row)
 
     @classmethod
-    def create(cls, name, description, user_id, role='ADMIN'):
-        role = role.upper()
+    def create(cls, name, description, user_id):
+        role = 'ADMIN'
         conn = db.engine.connect()
         trans = conn.begin()
         try:

@@ -8,8 +8,9 @@ page = Blueprint("project", __name__)
 
 @page.route("/create", methods=["POST"])
 def create():
-    project = Project.create(request.form["name"], request.form["description"],
-                             session["user_id"], request.form["role"])
+    project = Project.create(request.form["name"],
+                             request.form["description"],
+                             session["user_id"])
 
     if project is None:
         return "Could not create project", 500
