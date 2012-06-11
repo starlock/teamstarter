@@ -1,7 +1,7 @@
 {{#is_authenticated}}
 <div id="profile" class="btn-group pull-right">
 	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-		<i class="icon-user"></i> Username
+		<i class="icon-user"></i> {{ user.email }}
 		<span class="caret"></span>
 	</a>
 	<ul class="dropdown-menu">
@@ -19,7 +19,7 @@
 		<div id="login-dropdown" class="dropdown-menu">
 			<form method="post" class="form-inline" action="#">
 				<input type="email" id="login-email" name="email" class="input-small" placeholder="E-mail" />
-                <input type="password" id="login-password" name="password" class="input-small" placeholder="Password" />
+				<input type="password" id="login-password" name="password" class="input-small" placeholder="Password" />
 				<button id="login-btn" class="btn">Log in</button>
 			</form>
 		</div>

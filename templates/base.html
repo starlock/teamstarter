@@ -33,6 +33,7 @@
 	<script src="{{ url_for("static", filename="js/environment.js") }}"></script>
 	<script src="{{ url_for("static", filename="js/bootstrap.min.js") }}"></script>
 	<script>
+		window.clientSession = {{ user_session|safe }};
 		require.config({
 			baseUrl: '/static/js',
 

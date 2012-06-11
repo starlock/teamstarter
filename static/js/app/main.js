@@ -36,6 +36,7 @@ define([
 
         onLoginClick: function(e) {
             e.preventDefault();
+            var self = this;
             var email = $('#login-email').val();
             var password = $('#login-password').val();
 
@@ -49,13 +50,21 @@ define([
                 auth.save(null, {
                     success: function(e) {
                         console.log('Logged in');
-                        console.log(e);
+                        window.session = e;
+                        self.renderNavigation();
                     },
                     error: function() {
                         console.log('Failed to login');
                     },
                 });
             }
+        },
+
+        populateSession: function() {
+            var user_id = window.clientSession.id;
+            var User = Backbone.Model.extend({urlRoot : '/api/user/' + user_id});
+            var user = new User(window.clientSession);
+            window.session = user;
         },
 
         renderNavigation: function() {
@@ -171,6 +180,7 @@ define([
 
         // Render application view
         var view = app.view = new ApplicationView();
+        view.populateSession();
         container.append(view.render().$el);
 
         // Prepare application view for coming effects

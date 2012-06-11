@@ -14,7 +14,15 @@ define([
         },
 
         render: function() {
-            var content = Mustache.render(NavigationMarkup);
+            var params = {};
+
+            if (typeof window.session !== 'undefined') {
+                params.is_authenticated = true;
+                params.user = {};
+                params.user.email = window.session.get('email');
+            }
+
+            var content = Mustache.render(NavigationMarkup, params);
             this.$el.append(content);
             return this;
         },

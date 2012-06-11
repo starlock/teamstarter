@@ -1,6 +1,8 @@
 from flask import Flask, render_template, session
 
+import db
 import api
+from models.user import User
 from session import PsqlSessionInterface
 
 app = Flask(__name__, static_folder="static")
@@ -12,7 +14,8 @@ app.register_blueprint(api.project.page, url_prefix="/api/project")
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    user_session = db.json_encode(User.get(session['user_id']).to_dict())
+    return render_template('index.html', user_session=user_session)
 
 @app.route("/signup")
 def signup():
