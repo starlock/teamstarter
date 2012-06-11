@@ -1,4 +1,4 @@
-from flask import request, Blueprint
+from flask import request, Blueprint, session
 from datetime import datetime
 
 import db
@@ -15,6 +15,9 @@ def create():
     if 'role' in request.form:
         role = request.form['role'].upper()
 
+    if 'user_id' not in session:
+        return "Unauthorized", 403 # TODO: use decorator instead
+
     conn = db.engine.connect()
     trans = conn.begin()
     try:
@@ -26,7 +29,7 @@ def create():
         [project_id] = data.inserted_primary_key
 
         data = conn.execute(db.user_projects.insert(),
-            user_id = 1, # TODO: use real id from session
+            user_id = session['user_id'],
             project_id = project_id,
             role = role,
             created_at = datetime.now(),
