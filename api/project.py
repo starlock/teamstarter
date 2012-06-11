@@ -1,4 +1,5 @@
 from flask import request, Blueprint, session
+import json
 
 import db
 import utils
@@ -39,4 +40,5 @@ def users(project_id):
 
 @page.route("/list", methods=["GET"])
 def list():
-    return "PROJECT LIST"
+    projects = Project.all()
+    return json.dumps([ project.to_dict() for project in projects ])

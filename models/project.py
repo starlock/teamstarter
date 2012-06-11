@@ -8,6 +8,16 @@ class Project(BaseModel):
     properties = db.projects.c.keys()
 
     @classmethod
+    def all(cls):
+        data = db.projects.select().execute()
+        rows = data.fetchall()
+
+        projects = []
+        for row in rows:
+            projects.append(cls.init(**row))
+        return projects
+
+    @classmethod
     def get(cls, id):
         data = db.projects.select().where(db.projects.c.id == id).execute()
         if data.rowcount == 0:
