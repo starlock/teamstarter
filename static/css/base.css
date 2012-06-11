@@ -38,6 +38,15 @@ body {
 
 .navbar .nav .active > a, .navbar .nav .active > a:hover {
     background-color: #4c5a68;
+    border-right: 1px solid #6c7a88;
+    border-left: 1px solid #3C4A58;
+}
+
+@media (max-width: 979px) {
+    .nav-collapse .nav .active > a, .nav-collapse .nav .active > a:hover {
+        border-bottom: 1px solid #6c7a88;
+        border-top: 1px solid #3C4A58;
+    }
 }
 
 .navbar .brand {
