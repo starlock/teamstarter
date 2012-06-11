@@ -1,4 +1,4 @@
-from flask.session import SessionMixin, SessionInterface
+from flask.sessions import SessionMixin, SessionInterface
 from flask import request
 from datetime import datetime
 import json
