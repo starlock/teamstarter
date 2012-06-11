@@ -38,6 +38,22 @@ class Project(BaseModel):
         return cls.get(id)
 
     @classmethod
+    def join(cls, project_id, user_id, role='MEMBER'):
+        role = role.upper()
+
+        created_at = modified_at = datetime.now()
+
+        data = db.user_projects.insert().execute(
+            user_id = user_id,
+            project_id = project_id,
+            role = role,
+            created_at = created_at,
+            modified_at = modified_at
+        )
+
+        return data.rowcount == 1
+
+    @classmethod
     def create(cls, name, description, user_id):
         role = 'ADMIN'
         conn = db.engine.connect()
