@@ -47,7 +47,7 @@ def modify(user_id):
 
 @page.route("/<int:user_id>/projects", methods=["GET"])
 def users(user_id):
-    return "LIST PROJECTS: %d" % user_id
+    return db.json_encode(User.get(user_id).get_projects())
 
 @page.route("/list", methods=["GET"])
 def list():
