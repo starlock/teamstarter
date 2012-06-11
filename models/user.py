@@ -1,8 +1,10 @@
 import bcrypt
 from datetime import datetime
+from sqlalchemy.sql.expression import join
 import db
 
 from models import BaseModel
+from models.project import Project
 
 def is_correct_password(raw, hashed):
     """Check whether given raw password matches given hash."""
@@ -11,6 +13,20 @@ def is_correct_password(raw, hashed):
 class User(BaseModel):
 
     properties = db.users.c.keys()
+
+    def get_projects(self):
+        data = join(db.user_projects, db.projects,
+                db.user_projects.c.project_id == db.projects.c.id
+            ).select(use_labels=True).where(
+                db.user_projects.c.user_id == self.id
+            ).execute()
+
+        rows = data.fetchall()
+        projects = []
+        for row in rows:
+            projects.append(Project.init(**row))
+
+        return projects
 
     @classmethod
     def get(cls, id):
