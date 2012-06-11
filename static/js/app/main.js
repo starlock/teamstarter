@@ -15,6 +15,34 @@ define([
             return this;
         },
 
+        events: {
+            'click #login-btn': 'onLoginClick',
+        },
+
+        onLoginClick: function(e) {
+            e.preventDefault();
+            var email = $('#login-email').val();
+            var password = $('#login-password').val();
+
+            if (email && password) {
+                var AuthUser = Backbone.Model.extend({urlRoot : '/api/user/auth'});
+                var auth = new AuthUser({
+                    'email': email,
+                    'password': password
+                });
+
+                auth.save(null, {
+                    success: function(e) {
+                        console.log('Logged in');
+                        console.log(e);
+                    },
+                    error: function() {
+                        console.log('Failed to login');
+                    },
+                });
+            }
+        },
+
         renderNavigation: function() {
             var navigation = new NavigationLayout();
             if (_.isUndefined(this.currentNavigation) !== true) {
