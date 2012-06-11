@@ -21,10 +21,12 @@ def json_datetime_handler(obj):
     return None
 
 def json_encode(row):
-    keys = row.keys()
     obj = {}
-    for key in keys:
-        if key not in blacklisted_keys:
-            obj[key] = row[key]
+
+    if row:
+        keys = row.keys()
+        for key in keys:
+            if key not in blacklisted_keys:
+                obj[key] = row[key]
 
     return json.dumps(obj, default=json_datetime_handler)
