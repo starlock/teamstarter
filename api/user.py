@@ -11,11 +11,11 @@ def create():
     # request.form["email"]
     # request.form["password"]
 
-    hashed_password = bcrypt.hashpw(request.form["password"], bcrypt.gensalt())
+    hashed = bcrypt.hashpw(request.form["password"], bcrypt.gensalt())
     try:
         data = db.users.insert().execute(
             email = request.form["email"],
-            password = hashed_password,
+            password = hashed,
             created_at = datetime.now()
         )
     except db.IntegrityError:
@@ -27,7 +27,13 @@ def create():
 
 @page.route("/<int:user_id>", methods=["GET"])
 def fetch(user_id):
-    return "Get: %d" % user_id
+    data = db.users.select().where(
+        db.users.c.id == user_id).execute()
+
+    if data.rowcount == 0:
+        return "No such user!", 404
+
+    return db.json_encode(data.fetchone())
 
 @page.route("/<int:user_id>", methods=["PUT"])
 def modify(user_id):
