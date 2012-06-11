@@ -1,15 +1,20 @@
 import flask
+from flask import request, Blueprint
 
-page = flask.Blueprint("api", __name__)
+page = Blueprint("api", __name__)
 
 @page.route("/create", methods=["POST"])
-def login():
-   return "CREATE!"
+def create():
+    # request.form["email"]
+    # request.form["password"]
+    return "CREATE USER"
 
 @page.route("/<int:user_id>", methods=["GET"])
-def login(user_id):
-   return "Get: %d" % user_id
+def fetch(user_id):
+    return "Get: %d" % user_id
 
 @page.route("/<int:user_id>", methods=["PUT"])
-def login(user_id):
-   return "Modify: %d" % user_id
+def modify(user_id):
+    # request.form["bio"]
+    # request.form["password"]
+    return "Modify: %d" % user_id
