@@ -4,6 +4,7 @@
     {% block head %}
     <title>Teamstarter - {% block title %}Get your idea going{% endblock %}</title>
     <link rel="stylesheet" href="/static/css/base.css" />
+    <link href='http://fonts.googleapis.com/css?family=Acme' rel='stylesheet' type='text/css'>
     <script type="text/javascript">
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', '']);
@@ -18,7 +19,15 @@
 </head>
 <body>
 <div id="header">
-    {% block header %}{% endblock %}
+    {% block header %}
+    <h1><a href="/">Teamstarter</a></h1>
+    <ul>
+        <li><a href="/discover">Discover</a></li>
+        <li><a href="/create">Create</a></li>
+        <li><a href="/signup">Signup</a></li>
+        <li><a href="/signin">Signin</a></li>
+    </ul>
+    {% endblock %}
 </div>
 <div id="content">
     {% block content %}{% endblock %}

@@ -1,0 +1,28 @@
+html, body, h1, p {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, arial, sans-serif;
+}
+
+#header {
+    padding: 15px;
+    background: #eee;
+}
+
+#header h1 {
+    font-family: 'Acme';
+    display: inline;
+}
+
+#header ul {
+    display: inline;
+}
+
+#header li {
+    display: inline;
+    margin-right: 20px;
+}
+
+#content {
+    padding: 30px;
+}
