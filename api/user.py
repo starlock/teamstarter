@@ -29,3 +29,11 @@ def modify(user_id):
     # request.form["bio"]
     # request.form["password"]
     return "Modify: %d" % user_id
+
+@page.route("/<int:user_id>/projects", methods=["GET"])
+def users(user_id):
+    return "LIST PROJECTS: %d" % user_id
+
+@page.route("/list", methods=["GET"])
+def list():
+    return "USER LIST"
