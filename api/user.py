@@ -4,7 +4,7 @@ from datetime import datetime
 
 from db import users
 
-page = Blueprint("api", __name__)
+page = Blueprint("user", __name__)
 
 @page.route("/create", methods=["POST"])
 def create():
