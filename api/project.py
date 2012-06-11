@@ -18,7 +18,10 @@ def create():
 
 @page.route("/<int:project_id>", methods=["GET"])
 def fetch(project_id):
-    return "Get: %d" % project_id
+    project = Project.get(project_id)
+    if not project:
+        return "No such project!", 404
+    return db.json_encode(project.to_dict())
 
 @page.route("/<int:project_id>", methods=["PUT"])
 @utils.require_project_owner
