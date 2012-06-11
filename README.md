@@ -21,17 +21,22 @@ End point               Method  Action
 
 ## Models
 Description of model properties used to describe models in the API
+
 ### User
 ```
 email           [varchar 255]   User e-mail
 password        [varchar 255]   User Password
 bio             [varchar 120]   User biography
+created_at      [timestamp]     When user account was created
+modified_at     [timestamp]     When user was last modified
 ```
 
 ### Project
 ```
 name            [varchar 120]   Project name
 description     [varchar 65535] Project description
+created_at      [timestamp]     When project was created
+modified_at     [timestamp]     When project was last modified
 ```
 
 # Included JavaScript libraries
