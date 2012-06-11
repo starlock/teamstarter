@@ -22,15 +22,15 @@ End point               Method  Action
 ```
 
 ## Models
+### User
 ```
-    user:
-        email           [varchar 255]   User e-mail
-        password        [varchar 255]   User Password
-        bio             [varchar 120]   User biography
+email           [varchar 255]   User e-mail
+password        [varchar 255]   User Password
+bio             [varchar 120]   User biography
 ```
 
+### Project
 ```
-    project:
-        name            [varchar 120]   Project name
-        description     [varchar 65535] Project description
+name            [varchar 120]   Project name
+description     [varchar 65535] Project description
 ```
