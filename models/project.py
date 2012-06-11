@@ -46,3 +46,13 @@ class Project(BaseModel):
         return cls.init(id=id, name=name, description=description,
                         user_id=user_id, modified_at=modified_at,
                         created_at=created_at)
+
+    @classmethod
+    def has_access(cls, project_id, user_id):
+        data = db.user_projects.select() \
+            .where(db.user_projects.c.user_id == user_id) \
+            .where(db.user_projects.c.project_id == project_id) \
+            .execute()
+        if data.rowcount:
+            return True
+        return False
