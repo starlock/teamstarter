@@ -1,5 +1,6 @@
 from flask import request, Blueprint, session
 from models.user import User
+import json
 
 import db
 import utils
@@ -50,7 +51,8 @@ def modify(user_id):
 
 @page.route("/<int:user_id>/projects", methods=["GET"])
 def users(user_id):
-    return db.json_encode(User.get(user_id).get_projects())
+    projects = User.get(user_id).get_projects()
+    return json.dumps([ project.to_dict() for project in projects ])
 
 @page.route("/list", methods=["GET"])
 def list():
