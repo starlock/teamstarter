@@ -3,7 +3,7 @@ from flask import Flask, render_template
 import api
 
 app = Flask(__name__, static_folder="static")
-app.config.from_pyfile("settings.py")
+app.config.from_pyfile("config/settings.py")
 
 app.register_blueprint(api.user.page, url_prefix="/api/user")
 app.register_blueprint(api.project.page, url_prefix="/api/project")
