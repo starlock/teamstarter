@@ -1,4 +1,5 @@
 from sqlalchemy import create_engine, MetaData, Table
+from sqlalchemy.exc import IntegrityError
 
 DATABASE_URI = 'postgresql://webadmin@/teamstarter'
 

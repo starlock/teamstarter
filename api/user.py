@@ -2,7 +2,7 @@ from flask import request, Blueprint
 import bcrypt
 from datetime import datetime
 
-from db import users
+import db
 
 page = Blueprint("user", __name__)
 
@@ -12,15 +12,18 @@ def create():
     # request.form["password"]
 
     hashed_password = bcrypt.hashpw(request.form["password"], bcrypt.gensalt())
-    data = users.insert().execute(
-        email = request.form["email"],
-        password = hashed_password,
-        created_at = datetime.now()
-    )
+    try:
+        data = db.users.insert().execute(
+            email = request.form["email"],
+            password = hashed_password,
+            created_at = datetime.now()
+        )
+    except db.IntegrityError:
+        return "Email has already been used", 400
 
     [user_id] = data.inserted_primary_key
 
-    return "Created user: %s" % user_id
+    return "Created user: %s" % user_id, 201
 
 @page.route("/<int:user_id>", methods=["GET"])
 def fetch(user_id):
