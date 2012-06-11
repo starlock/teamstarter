@@ -1,4 +1,4 @@
-from flask import request, Blueprint
+from flask import request, Blueprint, session
 from models.user import User
 import db
 
@@ -11,6 +11,9 @@ def auth():
     user = User.get_authenicated(email, password)
     if not user:
         return 'Invalid credentials', 403
+
+    session['user_id'] = row['id']
+
     return db.json_encode(user.to_dict())
 
 @page.route("/create", methods=["POST"])
