@@ -1,4 +1,3 @@
-import flask
 from flask import request, Blueprint
 
 page = Blueprint("project", __name__)
