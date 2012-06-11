@@ -17,3 +17,13 @@ def modify(project_id):
     # request.form["name"]
     # request.form["description"]
     return "Modify: %d" % project_id
+
+@page.route("/<int:project_id>/users", methods=["GET"])
+def users(project_id):
+    # request.form["name"]
+    # request.form["description"]
+    return "LIST USERS: %d" % project_id
+
+@page.route("/list", methods=["GET"])
+def list():
+    return "PROJECT LIST"
