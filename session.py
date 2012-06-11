@@ -8,7 +8,6 @@ from werkzeug.datastructures import CallbackDict
 
 class PsqlSession(CallbackDict, SessionMixin):
     def __init__(self, initial=None, sid=None, new=False):
-        print "psqlsession"
         def on_update(self):
             self.modified = True
 
@@ -22,7 +21,6 @@ class PsqlSessionInterface(SessionInterface):
     serializer = json
 
     def generate_sid(self):
-        print "generate_sid"
         return str(uuid4())
 
     def open_session(self, app, request):
