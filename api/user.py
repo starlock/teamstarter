@@ -1,6 +1,8 @@
 from flask import request, Blueprint, session
 from models.user import User
+
 import db
+import utils
 
 page = Blueprint("user", __name__)
 
@@ -28,6 +30,7 @@ def create():
     return db.json_encode(user.to_dict())
 
 @page.route("/<int:user_id>", methods=["GET"])
+@utils.auth_required
 def fetch(user_id):
     user = User.get(user_id)
     if not user:
