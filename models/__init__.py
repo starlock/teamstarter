@@ -3,12 +3,11 @@ class BaseModel(object):
     @classmethod
     def init(cls, **kwargs):
         instance = cls()
-        for key, value in kwargs.iteritems():
-            setattr(instance, key, value)
+        instance.data = kwargs
         return instance
 
+    def __getattr__(self, name):
+        return self.data.get(name, None)
+
     def to_dict(self):
-        ret = {}
-        for key in self.properties:
-            ret[key] = getattr(self, key, None)
-        return ret
+        return self.data
