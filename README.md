@@ -3,7 +3,16 @@ teamstarter
 
 Our 24hbc project: Kickstarter, but teambuilding rather than fundraising
 
+# Included JavaScript libraries
+    jQuery 1.7.2
+    Underscore.js 1.3.3
+    Mustache.js 0.5.0-dev
+    Backbone 0.9.2
+    RequireJS 2.0.1
+    RequireJS Text Plugin 2.0.0
+
 #API documentation for Teamstarter
+==================================
 
 ## API Endpoints
 All API endpoints reside under the root url ```/api/1```
@@ -52,11 +61,3 @@ role            [enum(ADMIN,MEMBER)]    Users role in relation to project
 created_at      [timestamp]             When project was created
 modified_at     [timestamp]             When project was last modified
 ```
-
-# Included JavaScript libraries
-    jQuery 1.7.2
-    Underscore.js 1.3.3
-    Mustache.js 0.5.0-dev
-    Backbone 0.9.2
-    RequireJS 2.0.1
-    RequireJS Text Plugin 2.0.0
