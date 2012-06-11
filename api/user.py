@@ -1,80 +1,43 @@
-import bcrypt
-from datetime import datetime
-
 from flask import request, Blueprint
+from models.user import User
 import db
 
 page = Blueprint("user", __name__)
 
-def is_correct_password(raw, hashed):
-    """Check whether given raw password matches given hash."""
-    return (hashed == bcrypt.hashpw(raw, hashed))
-
 @page.route("/auth", methods=["POST"])
 def auth():
-    def invalid():
-        return 'Invalid credentials', 403
-
     email = request.form['email']
     password = request.form['password']
-    data = db.users.select().where(db.users.c.email == email).execute()
-
-    if data.rowcount == 0:
-        return invalid()
-
-    row = data.fetchone()
-    # Validate password
-    if not is_correct_password(password, row['password']):
-        return invalid()
-
-    # TODO: Create session here..
-    return db.json_encode(row)
+    user = User.get_authenicated(email, password)
+    if not user:
+        return 'Invalid credentials', 403
+    return db.json_encode(user.to_dict())
 
 @page.route("/create", methods=["POST"])
 def create():
-    # request.form["email"]
-    # request.form["password"]
+    email = request.form["email"]
+    password = request.form["password"]
 
-    hashed = bcrypt.hashpw(request.form["password"], bcrypt.gensalt())
     try:
-        data = db.users.insert().execute(
-            email = request.form["email"],
-            password = hashed,
-            created_at = datetime.now(),
-            modified_at = datetime.now()
-        )
+        user = User.create(email, password)
     except db.IntegrityError:
         return "Email has already been used", 400
-
-    [user_id] = data.inserted_primary_key
-
-    return "Created user: %s" % user_id, 201
+    return db.json_encode(user.to_dict())
 
 @page.route("/<int:user_id>", methods=["GET"])
 def fetch(user_id):
-    data = db.users.select().where(
-        db.users.c.id == user_id).execute()
-
-    if data.rowcount == 0:
+    user = User.get(user_id)
+    if not user:
         return "No such user!", 404
-
-    return db.json_encode(data.fetchone())
+    return db.json_encode(user.to_dict())
 
 @page.route("/<int:user_id>", methods=["PUT"])
 def modify(user_id):
-    # request.form["bio"]
-    # request.form["password"]
-
-    data = db.users.update().where(
-            db.users.c.id == user_id
-        ).values(
-            bio = request.form['bio']
-        ).execute()
-
-    if data.rowcount == 0:
+    bio = request.form["bio"]
+    user = User.modify(user_id, bio)
+    if not user:
         return "No such user!", 404
-
-    return "Modify: %d" % user_id
+    return db.json_encode(user.to_dict())
 
 @page.route("/<int:user_id>/projects", methods=["GET"])
 def users(user_id):
