@@ -30,7 +30,6 @@ def create():
     return db.json_encode(user.to_dict())
 
 @page.route("/<int:user_id>", methods=["GET"])
-@utils.auth_required
 def fetch(user_id):
     user = User.get(user_id)
     if not user:
@@ -38,6 +37,7 @@ def fetch(user_id):
     return db.json_encode(user.to_dict())
 
 @page.route("/<int:user_id>", methods=["PUT"])
+@utils.require_auth
 def modify(user_id):
     bio = request.form["bio"]
     user = User.modify(user_id, bio)

@@ -2,6 +2,7 @@ from flask import request, Blueprint, session
 from datetime import datetime
 
 import db
+import utils
 
 page = Blueprint("project", __name__)
 
@@ -48,6 +49,7 @@ def fetch(project_id):
     return "Get: %d" % project_id
 
 @page.route("/<int:project_id>", methods=["PUT"])
+@utils.require_project_owner
 def modify(project_id):
     # request.form["name"]
     # request.form["description"]
