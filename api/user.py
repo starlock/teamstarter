@@ -1,5 +1,9 @@
 import flask
 from flask import request, Blueprint
+import bcrypt
+from pprint import pformat
+
+from db import users
 
 page = Blueprint("api", __name__)
 
@@ -7,7 +11,16 @@ page = Blueprint("api", __name__)
 def create():
     # request.form["email"]
     # request.form["password"]
-    return "CREATE USER"
+
+    hashed_password = bcrypt.hashpw(request.form["password"], bcrypt.gensalt())
+    data = users.insert().execute(
+        email = request.form["email"],
+        password = hashed_password
+    )
+
+    [user_id] = data.inserted_primary_key
+
+    return "Created user: %s" % user_id
 
 @page.route("/<int:user_id>", methods=["GET"])
 def fetch(user_id):
