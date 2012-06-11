@@ -31,7 +31,12 @@ def fetch(project_id):
 def modify(project_id):
     # request.form["name"]
     # request.form["description"]
-    return "Modify: %d" % project_id
+    project = Project.modify(project_id,
+                             request.form["name"],
+                             request.form["description"])
+    if project is None:
+        return "No such project!", 404
+    return json.dumps(project.to_dict())
 
 @page.route("/<int:project_id>/users", methods=["GET"])
 def users(project_id):

@@ -26,6 +26,18 @@ class Project(BaseModel):
         return cls.init(**row)
 
     @classmethod
+    def modify(cls, id, name, description):
+        data = db.projects.update().where(
+                    db.projects.c.id == id
+                ).values(
+                    name = name,
+                    description = description
+                ).execute()
+        if data.rowcount == 0:
+            return None
+        return cls.get(id)
+
+    @classmethod
     def create(cls, name, description, user_id):
         role = 'ADMIN'
         conn = db.engine.connect()
