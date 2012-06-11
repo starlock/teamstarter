@@ -33,6 +33,16 @@ def fetch(user_id):
 def modify(user_id):
     # request.form["bio"]
     # request.form["password"]
+
+    data = db.users.update().where(
+            db.users.c.id == user_id
+        ).values(
+            bio = request.form['bio']
+        ).execute()
+
+    if data.rowcount == 0:
+        return "No such user!", 404
+
     return "Modify: %d" % user_id
 
 @page.route("/<int:user_id>/projects", methods=["GET"])
