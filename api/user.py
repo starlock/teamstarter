@@ -27,6 +27,9 @@ def create():
         user = User.create(email, password)
     except db.IntegrityError:
         return "Email has already been used", 400
+
+    session['user_id'] = user.id
+
     return db.json_encode(user.to_dict())
 
 @page.route("/<int:user_id>", methods=["GET"])
