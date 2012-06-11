@@ -10,6 +10,7 @@ define([
     var NavigationLayout = Backbone.View.extend({
         events: {
             'click #signup-link': 'onSignupClick',
+            'click #logout-link': 'onLogoutClick',
             'click a': 'onNavigationClick',
         },
 
@@ -49,6 +50,10 @@ define([
 
             e.preventDefault();
             Utility.Mediator.trigger('page:navigate', link);
+        },
+
+        onLogoutClick: function(e) {
+            window.location = '/logout';
         },
 
         onSignupClick: function(e) {

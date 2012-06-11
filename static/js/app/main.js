@@ -62,9 +62,11 @@ define([
 
         populateSession: function() {
             var user_id = window.clientSession.id;
-            var User = Backbone.Model.extend({urlRoot : '/api/user/' + user_id});
-            var user = new User(window.clientSession);
-            window.session = user;
+            if (typeof user_id !== 'undefined') {
+                var User = Backbone.Model.extend({urlRoot : '/api/user/' + user_id});
+                var user = new User(window.clientSession);
+                window.session = user;
+            }
         },
 
         renderNavigation: function() {

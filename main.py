@@ -14,7 +14,10 @@ app.register_blueprint(api.project.page, url_prefix="/api/project")
 
 @app.route("/")
 def index():
-    user_session = db.json_encode(User.get(session['user_id']).to_dict())
+    if 'user_id' in session:
+        user_session = db.json_encode(User.get(session['user_id']).to_dict())
+    else:
+        user_session = {}
     return render_template('index.html', user_session=user_session)
 
 @app.route("/signup")
