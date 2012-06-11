@@ -14,11 +14,9 @@ End point               Method  Action
 /user/<user-id>         PUT     Modify User [bio]
 /user/<user-id>         GET     Get model properties for given User
 
-/project/create         POST                Create a new project
-                                            [name, description]
-/project/<project-id>   PUT                 Modify project [name, description]
-/project/<project-id>   GET                 Get model properties for given
-                                            Project
+/project/create         POST    Create a new project [name, description]
+/project/<project-id>   PUT     Modify project [name, description]
+/project/<project-id>   GET     Get model properties for given Project
 ```
 
 ## Models
