@@ -23,9 +23,11 @@ def auth():
         return invalid()
 
     row = data.fetchone()
+    # Validate password
     if not is_correct_password(password, row['password']):
         return invalid()
 
+    # TODO: Create session here..
     return db.json_encode(row)
 
 @page.route("/create", methods=["POST"])
