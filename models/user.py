@@ -32,7 +32,7 @@ class User(BaseModel):
         return cls.get(id)
 
     @classmethod
-    def get_authenicated(cls, email, password):
+    def get_authenticated(cls, email, password):
         data = db.users.select().where(db.users.c.email == email).execute()
         if data.rowcount == 0:
             return None

@@ -8,7 +8,7 @@ page = Blueprint("user", __name__)
 def auth():
     email = request.form['email']
     password = request.form['password']
-    user = User.get_authenicated(email, password)
+    user = User.get_authenticated(email, password)
     if not user:
         return 'Invalid credentials', 403
 
