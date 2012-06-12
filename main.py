@@ -13,11 +13,14 @@ app.register_blueprint(api.user.page, url_prefix="/api/user")
 app.register_blueprint(api.project.page, url_prefix="/api/project")
 
 @app.route("/")
+@app.route("/discover")
+@app.route("/project/create")
 def index():
+    user_session = {}
     if 'user_id' in session:
-        user_session = db.json_encode(User.get(session['user_id']).to_dict())
-    else:
-        user_session = {}
+        user = User.get(session['user_id'])
+        if user is not None:
+            user_session = db.json_encode(user.to_dict())
     return render_template('index.html', user_session=user_session)
 
 @app.route("/signup")
