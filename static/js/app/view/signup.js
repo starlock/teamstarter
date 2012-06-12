@@ -111,6 +111,7 @@ define([
                              'password': form.password});
             this.model.save(null, {
                 success: function(model, response) {
+                    $('.modal').modal('hide'); // self.$el doesn't work..
                     utility.Mediator.trigger('page:navigate', '/user/' + model.id);
                 },
                 error: function(model, response) {
