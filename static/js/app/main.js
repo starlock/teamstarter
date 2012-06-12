@@ -7,6 +7,8 @@ define([
     'app/view/project/create',
     'app/view/project/show',
 
+    'app/view/user/profile',
+
     'app/util'
 ], function(
     BaseMarkup,
@@ -16,6 +18,8 @@ define([
 
     CreateProjectView,
     ShowProjectView,
+
+    UserProfileView,
 
     Utility
 ) {
@@ -86,6 +90,7 @@ define([
             '': 'indexHandler',
 
             'discover': 'discoverHandler',
+            'user/profile': 'userProfileHandler',
 
             'project/create': 'createProjectHandler',
             'project/:id': 'showProjectHandler'
@@ -113,6 +118,14 @@ define([
 
         showProjectHandler: function(pid) {
             changeContentView(new ShowProjectView());
+        },
+
+        /********************************************************************
+         * USER RELATED VIEWS
+         *******************************************************************/
+
+        userProfileHandler: function() {
+            changeContentView(new UserProfileView());
         }
     });
 

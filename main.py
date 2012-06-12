@@ -12,10 +12,6 @@ app.config.from_pyfile("config/settings.py")
 app.register_blueprint(api.user.page, url_prefix="/api/user")
 app.register_blueprint(api.project.page, url_prefix="/api/project")
 
-@app.route("/signup")
-def signup():
-    return render_template('signup.html')
-
 @app.route("/logout")
 def logout():
     if 'user_id' in session:
